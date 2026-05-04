@@ -1,0 +1,11 @@
+echo ".venv/" >> .gitignore
+echo "__pycache__/" >> .gitignore
+echo "*.pyc" >> .gitignore
+echo ".DS_Store" >> .gitignore
+echo "*.pkl" >> .gitignore
+echo "*.pth" >> .gitignore
+echo "*.pt" >> .gitignore.venv/
+.venv/
+__pycache__/
+.DS_Store
+*.pyc
