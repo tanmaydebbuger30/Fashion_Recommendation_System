@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WardrobeWise | Recommendations</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="form-body">
+    <main class="form-shell">
+      <header class="topbar compact-topbar">
+        <a class="brand" href="index.html">WardrobeWise</a>
+        <nav class="topnav">
+          <a href="index.html">Home</a>
+          <a class="nav-cta" href="form.html">Recommendation Form</a>
+        </nav>
+      </header>
+
+      <section class="form-hero">
+        <div>
+          <p class="eyebrow">Recommendation Page</p>
+          <h2>Tell us about your preferences and 
+            we’ll suggest outfits that fit your look.</h2>
+          <p class="landing-intro">
+            Upload or select an item from your wardrobe, and get matching casual or formal outfit 
+            recommendations made for you.
+          </p>
+        </div>
+        <div class="mini-gallery">
+          <div class="mini-tile tile-one"></div>
+          <div class="mini-tile tile-two"></div>
+          <div class="mini-tile tile-three"></div>
+        </div>
+      </section>
+
+      <section class="content-grid">
+        <form class="recommendation-form" id="recommendationForm">
+          <h2>Find Recommendations</h2>
+
+          <label for="height">Height (cm)</label>
+          <input
+            id="height"
+            name="height"
+            type="number"
+            min="100"
+            max="250"
+            placeholder="e.g. 170"
+            required
+          />
+
+          <label for="weight">Weight (kg)</label>
+          <input
+            id="weight"
+            name="weight"
+            type="number"
+            min="30"
+            max="250"
+            placeholder="e.g. 65"
+            required
+          />
+
+          <label for="gender">Gender</label>
+          <select id="gender" name="gender" required>
+            <option value="" disabled selected>Select gender</option>
+            <option value="Women">Women</option>
+            <option value="Men">Men</option>
+            <option value="Unisex">Unisex</option>
+          </select>
+
+          <label for="skinTone">Skin Tone</label>
+          <select id="skinTone" name="skinTone" required>
+            <option value="" disabled selected>Select skin tone</option>
+            <option value="Fair">Fair</option>
+            <option value="Medium">Medium</option>
+            <option value="Olive">Olive</option>
+            <option value="Brown">Brown</option>
+            <option value="Deep">Deep</option>
+          </select>
+
+          <label for="category">Category</label>
+          <select id="category" name="category" required>
+            <option value="" disabled selected>Select category</option>
+            <option value="Casual">Casuals</option>
+            <option value="Formal">Formals</option>
+          </select>
+
+          <div class="upload-block">
+            <div class="upload-copy">
+              <label for="userPhoto">Upload Photo</label>
+              <p>
+                Add a user photo to get suggestions focused on top wear or
+                bottom wear.
+              </p>
+            </div>
+            <div class="upload-actions">
+              <div class="file-input-wrap">
+                <label class="file-trigger" for="userPhoto">Choose From Device</label>
+                <input
+                  id="userPhoto"
+                  name="userPhoto"
+                  type="file"
+                  accept="image/*"
+                />
+              </div>
+              <div class="file-input-wrap">
+                <label class="file-trigger camera-trigger" for="cameraPhoto">Use Camera</label>
+                <input
+                  id="cameraPhoto"
+                  name="cameraPhoto"
+                  type="file"
+                  accept="image/*"
+                  capture="environment"
+                />
+              </div>
+            </div>
+            <p class="camera-note">
+              On supported phones and tablets, `Use Camera` will open the camera directly.
+            </p>
+            <div class="image-preview hidden" id="imagePreviewWrap">
+              <img id="imagePreview" alt="Uploaded user preview" />
+            </div>
+          </div>
+
+          <fieldset class="focus-group">
+            <legend>Suggestion Focus</legend>
+            <label class="focus-option" for="focusTop">
+              <input
+                id="focusTop"
+                name="wearFocus"
+                type="radio"
+                value="Top Wear"
+                checked
+              />
+              <span>Top Wear</span>
+            </label>
+            <label class="focus-option" for="focusBottom">
+              <input
+                id="focusBottom"
+                name="wearFocus"
+                type="radio"
+                value="Bottom Wear"
+              />
+              <span>Bottom Wear</span>
+            </label>
+          </fieldset>
+
+          <button type="submit">Show Recommendations</button>
+        </form>
+
+        <section class="results-panel">
+          <div class="results-empty" id="resultsEmpty">
+            <div class="results-placeholder-art"></div>
+            <h2>Recommended Products</h2>
+            <p>
+              After the user submits the form, fashion suggestions will appear
+              here with styling notes and product cards.
+            </p>
+          </div>
+
+          <div class="results-content hidden" id="resultsContent">
+            <div class="results-header">
+              <div>
+                <p class="eyebrow">Personalized Picks</p>
+                <h2 id="resultsTitle">Your Recommendations</h2>
+              </div>
+              <div class="profile-pill" id="profilePill"></div>
+            </div>
+
+            <div class="summary-card" id="summaryCard"></div>
+            <div class="uploaded-photo-card hidden" id="uploadedPhotoCard">
+              <img id="resultPhotoPreview" alt="Uploaded outfit reference" />
+              <div>
+                <p class="eyebrow">Photo Based Input</p>
+                <p id="photoInsight"></p>
+              </div>
+            </div>
+            <div class="recommendation-list" id="recommendationList"></div>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
