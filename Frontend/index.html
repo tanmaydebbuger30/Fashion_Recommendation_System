@@ -1,110 +1,1125 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>WardrobeWise | Home</title>
-    <link rel="stylesheet" href="styles.css" />
+    <title>Threadly Fashion</title>
+    <style>
+      :root {
+        --bg: #f5f3ee;
+        --ink: #191b1f;
+        --muted: #6a6f7a;
+        --line: #ddd7cc;
+        --paper: #fffdfa;
+        --paper-2: #f0ece4;
+        --brand: #115e59;
+        --brand-2: #e65f3c;
+        --dark: #101820;
+        --good: #0f766e;
+        --shadow: 0 18px 50px rgba(16, 24, 32, 0.12);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color: var(--ink);
+        background: var(--bg);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+      }
+
+      button,
+      input,
+      select,
+      textarea {
+        font: inherit;
+      }
+
+      button {
+        border: 0;
+        cursor: pointer;
+      }
+
+      .app-shell {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        min-height: 68px;
+        padding: 0 28px;
+        background: rgba(255, 253, 250, 0.94);
+        border-bottom: 1px solid var(--line);
+        backdrop-filter: blur(12px);
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 21px;
+        font-weight: 900;
+      }
+
+      .brand-mark {
+        width: 34px;
+        height: 34px;
+        display: grid;
+        place-items: center;
+        border-radius: 7px;
+        background: var(--dark);
+        color: #fff;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .nav button,
+      .ghost-btn {
+        min-height: 38px;
+        padding: 0 12px;
+        border-radius: 7px;
+        background: transparent;
+        color: var(--ink);
+        font-weight: 750;
+      }
+
+      .nav button.active,
+      .ghost-btn:hover,
+      .nav button:hover {
+        background: var(--paper-2);
+      }
+
+      .user-actions {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .primary-btn,
+      .dark-btn,
+      .soft-btn {
+        min-height: 42px;
+        padding: 0 15px;
+        border-radius: 7px;
+        font-weight: 850;
+      }
+
+      .primary-btn {
+        background: var(--brand);
+        color: white;
+      }
+
+      .dark-btn {
+        background: var(--dark);
+        color: white;
+      }
+
+      .soft-btn {
+        background: var(--paper-2);
+        color: var(--ink);
+      }
+
+      .main {
+        flex: 1;
+      }
+
+      .container {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 28px;
+      }
+
+      .auth-wrap {
+        min-height: 100vh;
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr;
+      }
+
+      .auth-art {
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+        min-height: 100vh;
+        padding: 42px;
+        color: white;
+        background:
+          linear-gradient(180deg, rgba(16, 24, 32, 0.25), rgba(16, 24, 32, 0.75)),
+          url("https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=1400&q=80");
+        background-size: cover;
+        background-position: center;
+      }
+
+      .auth-art h1 {
+        max-width: 680px;
+        margin: 0;
+        font-size: clamp(42px, 6vw, 82px);
+        line-height: 0.95;
+        letter-spacing: 0;
+      }
+
+      .auth-panel {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 34px;
+        background: var(--paper);
+      }
+
+      .auth-card {
+        width: min(460px, 100%);
+      }
+
+      .eyebrow {
+        color: var(--brand);
+        font-size: 12px;
+        font-weight: 950;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .auth-card h2,
+      .page-title {
+        margin: 8px 0 10px;
+        font-size: clamp(30px, 4vw, 48px);
+        line-height: 1;
+        letter-spacing: 0;
+      }
+
+      .muted {
+        color: var(--muted);
+        line-height: 1.5;
+      }
+
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-top: 18px;
+      }
+
+      .field {
+        display: grid;
+        gap: 6px;
+      }
+
+      .field.full {
+        grid-column: 1 / -1;
+      }
+
+      label {
+        color: #343841;
+        font-size: 13px;
+        font-weight: 800;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        min-height: 43px;
+        border: 1px solid #cfc7b8;
+        border-radius: 7px;
+        background: #fff;
+        padding: 0 12px;
+        color: var(--ink);
+      }
+
+      textarea {
+        min-height: 96px;
+        padding-top: 10px;
+        resize: vertical;
+      }
+
+      .auth-switch {
+        display: flex;
+        gap: 8px;
+        margin: 18px 0;
+        padding: 4px;
+        background: var(--paper-2);
+        border-radius: 8px;
+      }
+
+      .auth-switch button {
+        flex: 1;
+        min-height: 38px;
+        border-radius: 6px;
+        background: transparent;
+        font-weight: 850;
+      }
+
+      .auth-switch button.active {
+        background: var(--paper);
+        box-shadow: 0 4px 18px rgba(16, 24, 32, 0.08);
+      }
+
+      .google-btn {
+        width: 100%;
+        margin-top: 12px;
+        background: #fff;
+        border: 1px solid #cfc7b8;
+        color: var(--ink);
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 24px;
+        align-items: stretch;
+      }
+
+      .hero-copy {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-height: 430px;
+      }
+
+      .hero-copy h1 {
+        margin: 0;
+        font-size: clamp(46px, 7vw, 88px);
+        line-height: 0.94;
+        letter-spacing: 0;
+      }
+
+      .hero-media {
+        min-height: 430px;
+        border-radius: 8px;
+        background:
+          linear-gradient(180deg, rgba(16, 24, 32, 0), rgba(16, 24, 32, 0.35)),
+          url("https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=1200&q=80");
+        background-size: cover;
+        background-position: center;
+      }
+
+      .section-head {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 18px;
+        margin: 34px 0 16px;
+      }
+
+      .section-head h2 {
+        margin: 0;
+        font-size: 28px;
+      }
+
+      .filters {
+        display: grid;
+        grid-template-columns: 140px 150px minmax(180px, 1fr) 110px;
+        gap: 10px;
+        margin-bottom: 18px;
+      }
+
+      .product-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+        gap: 16px;
+      }
+
+      .product-card {
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--paper);
+      }
+
+      .product-card.selected {
+        outline: 3px solid var(--brand);
+      }
+
+      .product-card img {
+        width: 100%;
+        aspect-ratio: 3 / 4;
+        display: block;
+        object-fit: cover;
+        background: #ebe7de;
+      }
+
+      .product-body {
+        padding: 11px;
+      }
+
+      .product-name {
+        min-height: 38px;
+        font-size: 14px;
+        font-weight: 850;
+        line-height: 1.35;
+      }
+
+      .product-meta {
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.45;
+        margin-top: 7px;
+      }
+
+      .price-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        margin-top: 10px;
+      }
+
+      .price {
+        font-size: 17px;
+        font-weight: 950;
+      }
+
+      .tiny-btn {
+        min-height: 32px;
+        padding: 0 10px;
+        border-radius: 6px;
+        background: var(--dark);
+        color: #fff;
+        font-size: 12px;
+        font-weight: 850;
+      }
+
+      .detail-layout {
+        display: grid;
+        grid-template-columns: minmax(280px, 0.85fr) minmax(320px, 1.15fr);
+        gap: 22px;
+        margin-top: 20px;
+      }
+
+      .detail-panel,
+      .tool-panel,
+      .cart-panel {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--paper);
+        padding: 16px;
+      }
+
+      .detail-panel img {
+        width: 100%;
+        max-height: 620px;
+        object-fit: cover;
+        border-radius: 7px;
+        background: #ebe7de;
+      }
+
+      .detail-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-top: 12px;
+      }
+
+      .recommendation-area {
+        margin-top: 24px;
+      }
+
+      .recommendation-area h3 {
+        margin: 0 0 12px;
+      }
+
+      .horizontal-strip {
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(180px, 220px);
+        gap: 14px;
+        overflow-x: auto;
+        padding-bottom: 10px;
+      }
+
+      .status {
+        color: var(--muted);
+        margin-top: 12px;
+        line-height: 1.45;
+      }
+
+
+      .detail-panel .recommendation-area {
+        margin-top: 22px;
+        padding-top: 18px;
+        border-top: 1px solid var(--line);
+      }
+
+      .detail-panel .recommendation-area .product-grid {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+        gap: 10px;
+      }
+
+      .detail-panel .recommendation-area .product-name {
+        min-height: auto;
+        font-size: 12px;
+      }
+
+      .detail-panel .recommendation-area .product-meta,
+      .detail-panel .recommendation-area .price-row {
+        font-size: 11px;
+      }
+
+      .uploader {
+        border: 2px dashed #b9afa0;
+        border-radius: 8px;
+        background: #fffaf3;
+        padding: 26px;
+      }
+
+      .upload-preview {
+        max-width: 360px;
+        max-height: 460px;
+        display: block;
+        margin-top: 16px;
+        border-radius: 8px;
+        object-fit: cover;
+      }
+
+      .footer {
+        margin-top: 40px;
+        padding: 32px 28px;
+        color: #dce4ea;
+        background: var(--dark);
+      }
+
+      .footer-inner {
+        max-width: 1280px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 18px;
+      }
+
+      .hidden {
+        display: none !important;
+      }
+
+      @media (max-width: 920px) {
+        .topbar {
+          align-items: flex-start;
+          flex-direction: column;
+          padding: 14px;
+        }
+
+        .nav,
+        .user-actions {
+          width: 100%;
+          overflow-x: auto;
+        }
+
+        .auth-wrap,
+        .hero,
+        .detail-layout {
+          grid-template-columns: 1fr;
+        }
+
+        .auth-art {
+          min-height: 360px;
+        }
+
+        .filters,
+        .form-grid,
+        .footer-inner {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
   </head>
-  <body class="landing-body">
-    <main class="landing-shell">
-      <header class="topbar">
-        <a class="brand" href="index.html">WardrobeWise</a>
-        <nav class="topnav">
-          <a href="#features">Features</a>
-          <a href="#collections">Collections</a>
-          <a class="nav-cta" href="form.html">Get Started</a>
-        </nav>
-      </header>
 
-      <section class="landing-hero">
-        <div class="landing-copy">
-          <p class="eyebrow">Smart Fashion Guidance</p>
-          <h1>Find looks that fit your profile before you start shopping.</h1>
-          <p class="landing-intro">
-            An AI-powered fashion recommendation platform that helps users discover 
-            personalized casual and formal outfit suggestions based on their style 
-            preferences, body details, and uploaded wardrobe items.
-          </p>
-          <div class="hero-actions">
-            <a class="primary-link" href="form.html">Start Recommendation</a>
-            <a class="secondary-link" href="#features">See How It Works</a>
-          </div>
-        </div>
+  <body>
+    <div id="app"></div>
 
-        <div class="hero-visual">
-          <div class="mood-card tall-card">
-            <div class="mood-image warm-look"></div>
-            <div class="mood-copy">
-              <p>Curated Styling</p>
-              <span>Casual and formal outfit direction in one experience.</span>
-            </div>
-          </div>
-          <div class="mood-stack">
-            <div class="mood-card small-card">
-              <div class="mood-image street-look"></div>
-              <div class="mood-copy">
-                <p>Casual Edit</p>
-                <span>Relaxed, wearable, and polished.</span>
+    <script>
+      const API_URL = "http://127.0.0.1:8000";
+      const prices = [39, 42, 49, 59, 64, 79, 89, 99, 119, 149];
+
+      const state = {
+        view: "home",
+        authMode: "login",
+        user: JSON.parse(localStorage.getItem("threadly_user") || "null"),
+        profile: JSON.parse(localStorage.getItem("threadly_profile") || "null"),
+        cart: JSON.parse(localStorage.getItem("threadly_cart") || "[]"),
+        products: [],
+        selectedProduct: null,
+        recommendations: null,
+        uploadFile: null,
+        uploadPreview: "",
+        status: "",
+        filters: {
+          gender: "Men",
+          style: "Formals",
+          search: "",
+          limit: 24,
+        },
+      };
+
+      if (state.profile?.gender) state.filters.gender = state.profile.gender;
+      if (state.profile?.clothing_style) state.filters.style = state.profile.clothing_style;
+
+      const app = document.getElementById("app");
+
+      function priceFor(item) {
+        const id = String(item.item_id || item.filename || "0");
+        let total = 0;
+        for (const char of id) total += char.charCodeAt(0);
+        return prices[total % prices.length];
+      }
+
+      function imageSrc(item) {
+        return item.image_url ? `${API_URL}${item.image_url}` : "";
+      }
+
+      function saveUser() {
+        localStorage.setItem("threadly_user", JSON.stringify(state.user));
+        localStorage.setItem("threadly_profile", JSON.stringify(state.profile));
+      }
+
+      function saveCart() {
+        localStorage.setItem("threadly_cart", JSON.stringify(state.cart));
+      }
+
+      function bmi(heightCm, weightKg) {
+        if (!heightCm || !weightKg) return null;
+        const meters = Number(heightCm) / 100;
+        return Math.round((Number(weightKg) / (meters * meters)) * 10) / 10;
+      }
+
+      function suggestedSize(profile) {
+        const value = bmi(profile?.height_cm, profile?.weight_kg);
+        if (!value) return "M";
+        if (value < 18.5) return profile.gender === "Women" ? "XS" : "S";
+        if (value < 25) return profile.gender === "Women" ? "S" : "M";
+        if (value < 30) return profile.gender === "Women" ? "M" : "L";
+        return profile.gender === "Women" ? "L" : "XL";
+      }
+
+      function navTo(view) {
+        state.view = view;
+        state.recommendations = null;
+        render();
+        if (["home", "shop"].includes(view)) loadProducts();
+      }
+
+      function syncFiltersFromDOM() {
+        state.filters.gender = document.getElementById("filterGender")?.value || state.filters.gender;
+        state.filters.style = document.getElementById("filterStyle")?.value || state.filters.style;
+        state.filters.search = document.getElementById("filterSearch")?.value ?? state.filters.search;
+        state.filters.limit = document.getElementById("filterLimit")?.value || state.filters.limit;
+      }
+
+      async function loadProducts(overrides = {}) {
+        syncFiltersFromDOM();
+        const gender = state.filters.gender;
+        const style = state.filters.style;
+        const search = state.filters.search;
+        const limit = state.filters.limit;
+        const articleType = normalizeArticle(search);
+
+        const params = new URLSearchParams({
+          gender,
+          clothing_style: style,
+          limit,
+          ...overrides,
+        });
+        if (articleType) params.set("article_type", articleType);
+
+        state.status = "Loading products...";
+        render();
+
+        try {
+          const res = await fetch(`${API_URL}/items?${params}`);
+          state.products = await res.json();
+          state.selectedProduct = state.products[0] || null;
+          state.status = state.products.length ? `Loaded ${state.products.length} products.` : "No products found.";
+        } catch {
+          state.status = "Could not connect to backend. Start FastAPI on port 8000.";
+        }
+        render();
+      }
+
+
+      function mergeProducts(items) {
+        const incoming = (items || []).filter(Boolean);
+        const existingIds = new Set(state.products.map((item) => item.item_id));
+        const fresh = incoming.filter((item) => item.item_id && !existingIds.has(item.item_id));
+        if (fresh.length) {
+          state.products = [...fresh, ...state.products];
+        }
+      }
+
+      function recommendationItems(data) {
+        if (!data) return [];
+        if (Array.isArray(data.results)) return data.results;
+        if (data.matches) return Object.values(data.matches).flat();
+        return [];
+      }
+
+      function normalizeArticle(query) {
+        const value = query.trim().toLowerCase();
+        if (["tshirt", "tshirts", "t-shirt", "t-shirts", "tee"].includes(value)) return "Tshirts";
+        if (["jean", "jeans"].includes(value)) return "Jeans";
+        if (["blazer", "blazers"].includes(value)) return "Blazers";
+        if (["formal shirt", "formal shirts", "shirt", "shirts"].includes(value)) return "Formal Shirts";
+        if (["formal pant", "formal pants", "pants", "pant"].includes(value)) return "Formal Pants";
+        return "";
+      }
+
+      async function recommend(mode, product = state.selectedProduct) {
+        if (!product) {
+          state.status = "Select a product first.";
+          render();
+          return;
+        }
+        state.status = `Creating ${mode} recommendations...`;
+        render();
+
+        const body = {
+          mode,
+          item_id: product.item_id,
+          profile: {
+            gender: product.gender || document.getElementById("filterGender")?.value || state.profile?.gender || "Men",
+            clothing_style: product.usage || document.getElementById("filterStyle")?.value || state.profile?.clothing_style || "Formals",
+          },
+          limit: 8,
+          limit_per_category: 4,
+        };
+
+        try {
+          const res = await fetch(`${API_URL}/recommend`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body),
+          });
+          const data = await res.json();
+          if (!res.ok) {
+            throw new Error(JSON.stringify(data));
+          }
+          mergeProducts(recommendationItems(data));
+          state.recommendations = data;
+          state.status = "Recommendations ready. Scroll the product detail panel to see them.";
+        } catch (error) {
+          state.status = `Recommendation failed: ${error.message}`;
+        }
+        render();
+        setTimeout(() => {
+          document.getElementById("recommendationResults")?.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 50);
+      }
+
+      async function uploadRecommend(action = "similar") {
+        const file = state.uploadFile || document.getElementById("uploadFile")?.files?.[0];
+        if (!file) {
+          state.status = "Choose an image first.";
+          render();
+          return;
+        }
+
+        const form = new FormData();
+        form.append("file", file);
+        form.append("gender", state.profile?.gender || "Men");
+        form.append("clothing_style", document.getElementById("uploadStyle").value);
+        form.append("limit", "8");
+        form.append("limit_per_category", "4");
+        form.append("seed_subcategory", "Topwear");
+
+        state.status = action === "create" ? "Creating outfit pieces for your uploaded topwear..." : "Analyzing uploaded image...";
+        render();
+
+        try {
+          const url = action === "create" ? `${API_URL}/recommend/outfit/upload` : `${API_URL}/recommend/similar/upload`;
+          const res = await fetch(url, {
+            method: "POST",
+            body: form,
+          });
+          const data = await res.json();
+          if (!res.ok) {
+            throw new Error(JSON.stringify(data));
+          }
+          const normalizedData = action === "create" ? data : { mode: "upload", results: data };
+          mergeProducts(recommendationItems(normalizedData));
+          state.recommendations = normalizedData;
+          state.status = action === "create" ? "Outfit pieces ready. Showing jeans/pants and any shoes/accessories in your database." : "Upload recommendations ready.";
+        } catch (error) {
+          state.status = `Upload recommendation failed: ${error.message}`;
+        }
+        render();
+        setTimeout(() => {
+          document.getElementById("recommendationResults")?.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 50);
+      }
+
+      function addToCart(product) {
+        if (!product) return;
+        state.cart.push({ ...product, price: priceFor(product) });
+        saveCart();
+        state.status = "Added to cart.";
+        render();
+      }
+
+      function login(event) {
+        event.preventDefault();
+        const form = new FormData(event.target);
+        state.user = {
+          name: form.get("name") || "Returning Stylist",
+          email: form.get("email"),
+        };
+        state.profile = {
+          gender: form.get("gender") || "Men",
+          height_cm: Number(form.get("height_cm")) || null,
+          weight_kg: Number(form.get("weight_kg")) || null,
+          skin_color: form.get("skin_color") || "",
+          clothing_style: form.get("clothing_style") || "Formals",
+        };
+        state.profile.bmi = bmi(state.profile.height_cm, state.profile.weight_kg);
+        state.profile.suggested_size = suggestedSize(state.profile);
+        saveUser();
+        state.view = "home";
+        render();
+        loadProducts();
+      }
+
+      function googleLogin() {
+        state.user = { name: "Google User", email: "user@gmail.com", provider: "google" };
+        state.profile = state.profile || {
+          gender: "Men",
+          height_cm: 175,
+          weight_kg: 72,
+          skin_color: "Medium",
+          clothing_style: "Formals",
+          bmi: 23.5,
+          suggested_size: "M",
+        };
+        saveUser();
+        state.view = "home";
+        render();
+        loadProducts();
+      }
+
+      function logout() {
+        localStorage.removeItem("threadly_user");
+        localStorage.removeItem("threadly_profile");
+        state.user = null;
+        state.profile = null;
+        state.view = "home";
+        render();
+      }
+
+      function productCard(product, compact = false) {
+        const encodedProduct = encodeURIComponent(JSON.stringify(product));
+        return `
+          <article class="product-card ${state.selectedProduct?.item_id === product.item_id ? "selected" : ""}" data-item="${product.item_id}" data-product="${encodedProduct}" data-open-detail="${product.item_id}">
+            <img src="${imageSrc(product)}" alt="${product.product_name || product.article_type}">
+            <div class="product-body">
+              <div class="product-name">${product.product_name || product.article_type}</div>
+              <div class="product-meta">${product.gender || ""} ${product.usage || ""} ${product.article_type || ""}</div>
+              <div class="product-meta">Color: ${product.color || "Pattern"}</div>
+              <div class="price-row">
+                <span class="price">$${priceFor(product)}</span>
+                ${compact ? "" : `<button class="tiny-btn" data-cart="${product.item_id}">Add</button>`}
               </div>
             </div>
-            <div class="mood-card accent-card">
-              <p class="accent-number">05</p>
-              <span>Skin tones supported in the selector.</span>
+          </article>
+        `;
+      }
+
+      function renderAuth() {
+        const isSignup = state.authMode === "signup";
+        return `
+          <div class="auth-wrap">
+            <div class="auth-art">
+              <h1>Dress smarter, shop faster.</h1>
+            </div>
+            <div class="auth-panel">
+              <form class="auth-card" id="authForm">
+                <div class="eyebrow">Threadly AI</div>
+                <h2>${isSignup ? "Create your style profile" : "Welcome back"}</h2>
+                <p class="muted">${isSignup ? "We use your profile to suggest size-aware, occasion-ready outfits." : "Log in to continue shopping and creating outfits."}</p>
+                <div class="auth-switch">
+                  <button type="button" class="${!isSignup ? "active" : ""}" data-auth="login">Login</button>
+                  <button type="button" class="${isSignup ? "active" : ""}" data-auth="signup">Sign up</button>
+                </div>
+                <div class="form-grid">
+                  ${isSignup ? `<div class="field full"><label>Name</label><input name="name" placeholder="Tanmay" required></div>` : ""}
+                  <div class="field full"><label>Email</label><input name="email" type="email" placeholder="you@example.com" required></div>
+                  <div class="field full"><label>Password</label><input name="password" type="password" placeholder="••••••••" required></div>
+                  ${isSignup ? `
+                    <div class="field"><label>Gender</label><select name="gender"><option>Men</option><option>Women</option></select></div>
+                    <div class="field"><label>Preferred Style</label><select name="clothing_style"><option>Formals</option><option>Casual</option></select></div>
+                    <div class="field"><label>Height cm</label><input name="height_cm" type="number" placeholder="175"></div>
+                    <div class="field"><label>Weight kg</label><input name="weight_kg" type="number" placeholder="72"></div>
+                    <div class="field full"><label>Skin Tone</label><select name="skin_color"><option>Light</option><option>Medium</option><option>Deep</option></select></div>
+                  ` : ""}
+                </div>
+                <button class="primary-btn field full" style="width:100%; margin-top:16px;">${isSignup ? "Create Account" : "Login"}</button>
+                <button type="button" class="google-btn primary-btn" id="googleLogin">Continue with Google</button>
+                <p class="muted" style="font-size:12px;">Google login is mocked in this preview. Real OAuth needs a Google client ID and backend auth route.</p>
+              </form>
             </div>
           </div>
-        </div>
-      </section>
+        `;
+      }
 
-      <section class="feature-strip" id="features">
-        <article>
-          <h2>Profile Aware</h2>
-          <p>Inputs include height, weight, gender, and skin tone.</p>
-        </article>
-        <article>
-          <h2>Easy Onboarding</h2>
-          <p>Start smoothly and share your style details in a few steps.</p>
-        </article>
-        <article>
-          <h2>Instant Output</h2>
-          <p>Recommendations appear immediately with color and fit guidance.</p>
-        </article>
-      </section>
+      function renderShell(content) {
+        return `
+          <div class="app-shell">
+            <header class="topbar">
+              <div class="brand"><div class="brand-mark">T</div>Threadly</div>
+              <nav class="nav">
+                <button class="${state.view === "home" ? "active" : ""}" data-view="home">Home</button>
+                <button class="${state.view === "shop" ? "active" : ""}" data-view="shop">Shop</button>
+                <button class="${state.view === "create" ? "active" : ""}" data-view="create">Create Outfit</button>
+                <button class="${state.view === "snap" ? "active" : ""}" data-view="snap">DripDrop</button>
+              </nav>
+              <div class="user-actions">
+                <button class="ghost-btn" data-view="cart">Cart (${state.cart.length})</button>
+                ${state.user ? `<span class="muted">${state.user.name}</span><button class="soft-btn" id="logout">Logout</button>` : `<button class="dark-btn" data-auth-open>Login</button>`}
+              </div>
+            </header>
+            <main class="main">${content}</main>
+            <footer class="footer">
+              <div class="footer-inner">
+                <div><strong>Threadly</strong><p>AI-assisted catalog browsing, outfit creation, and visual similarity search.</p></div>
+                <div><strong>Build</strong><p>FastAPI backend, ResNet embeddings, color-aware outfit scoring.</p></div>
+                <div><strong>Next</strong><p>MongoDB users, Google OAuth, saved carts, checkout, and profile-based sizing.</p></div>
+              </div>
+            </footer>
+          </div>
+        `;
+      }
 
-      <section class="collections-section" id="collections">
-        <div class="section-heading">
-          <p class="eyebrow">Browse Styles</p>
-          <h2>Two clean recommendation paths for different moments.</h2>
-        </div>
+      function renderHome() {
+        return renderShell(`
+          <div class="container">
+            <section class="hero">
+              <div class="hero-copy">
+                <div class="eyebrow">New season engine</div>
+                <h1>Find the piece. Build the fit.</h1>
+                <p class="muted">Browse a live catalog, add items to cart, or use your recommender to create full outfits from one product.</p>
+                <div style="display:flex; gap:10px; margin-top:20px;"><button class="primary-btn" data-view="shop">Shop Now</button><button class="soft-btn" data-view="create">Create Outfit</button></div>
+              </div>
+              <div class="hero-media"></div>
+            </section>
+            <div class="section-head"><h2>Featured Articles</h2><button class="soft-btn" data-view="shop">View all</button></div>
+            <div class="horizontal-strip">${state.products.slice(0, 12).map((p) => productCard(p, true)).join("") || `<p class="muted">Start backend and load products.</p>`}</div>
+          </div>
+        `);
+      }
 
-        <div class="collection-grid">
-          <article class="collection-card casual-card">
-            <div class="collection-badge">Casuals</div>
-            <h3>Everyday outfits with comfort and confidence.</h3>
-            <p>
-              Think overshirts, denim, neutral sneakers, and easy layering for
-              daily wear.
-            </p>
-          </article>
+      function filters() {
+        return `
+          <div class="filters">
+            <select id="filterGender"><option ${state.filters.gender === "Men" ? "selected" : ""}>Men</option><option ${state.filters.gender === "Women" ? "selected" : ""}>Women</option></select>
+            <select id="filterStyle"><option ${state.filters.style === "Formals" ? "selected" : ""}>Formals</option><option ${state.filters.style === "Casual" ? "selected" : ""}>Casual</option></select>
+            <input id="filterSearch" value="${state.filters.search}" placeholder="Search Tshirt, Jeans, Blazers">
+            <input id="filterLimit" type="number" value="${state.filters.limit}" min="1" max="200">
+          </div>
+          <button class="primary-btn" id="loadProducts">Load Products</button>
+          <p class="status">${state.status}</p>
+        `;
+      }
 
-          <article class="collection-card formal-card">
-            <div class="collection-badge">Formals</div>
-            <h3>Sharp selections for events, office, and polished styling.</h3>
-            <p>
-              Tailored blazers, tapered trousers, and refined footwear with a
-              smarter finish.
-            </p>
-          </article>
-        </div>
-      </section>
+      function renderShop() {
+        return renderShell(`
+          <div class="container">
+            <div class="section-head"><div><div class="eyebrow">Catalog</div><h1 class="page-title">Shop Articles</h1></div></div>
+            ${filters()}
+            <div class="detail-layout">
+              <div>
+                <div class="product-grid">${state.products.map((p) => productCard(p)).join("") || `<p class="muted">No products loaded.</p>`}</div>
+              </div>
+              ${renderDetail()}
+            </div>
+          </div>
+        `);
+      }
 
-      <section class="cta-banner">
-        <div>
-          <p class="eyebrow">Ready To Try</p>
-          <h2>Move to the next page and generate recommendations.</h2>
-        </div>
-        <a class="primary-link" href="form.html">Open Input Page</a>
-      </section>
-    </main>
+      function renderDetail() {
+        const p = state.selectedProduct;
+        if (!p) return `<div class="detail-panel"><p class="muted">Select a product to view details.</p></div>`;
+        return `
+          <div id="productDetail" class="detail-panel">
+            <img src="${imageSrc(p)}" alt="${p.product_name}">
+            <div class="detail-actions">
+              <button class="primary-btn" data-rec="outfit">Recommended Outfits</button>
+              <button class="soft-btn" data-rec="similar">Similar Outfits</button>
+            </div>
+            <div style="margin-top:18px;">
+              <div class="eyebrow">${p.gender} ${p.usage}</div>
+              <h2 style="margin:8px 0;">${p.product_name || p.article_type}</h2>
+              <p class="muted">Category: ${p.subcategory} / ${p.article_type}</p>
+              <p class="muted">Color family: ${p.color || "Pattern"}</p>
+              <p class="muted">Suggested size for you: ${state.profile?.suggested_size || "M"}</p>
+              <div class="price-row"><span class="price">$${priceFor(p)}</span><button class="dark-btn" data-cart="${p.item_id}">Add to cart</button></div>
+            </div>
+            ${renderRecommendations()}
+          </div>
+        `;
+      }
+
+      function renderRecommendations() {
+        const data = state.recommendations;
+        if (!data) return "";
+        if (data.results) {
+          return `<section id="recommendationResults" class="recommendation-area"><h3>${data.mode === "similar" ? "Similar Products" : "Upload Matches"}</h3><div class="product-grid">${data.results.map((p) => productCard(p)).join("")}</div></section>`;
+        }
+        return `<section id="recommendationResults" class="recommendation-area"><h3>Recommended Outfit</h3>${Object.entries(data.matches || {}).map(([name, items]) => `<h3>${name}</h3>${items.length ? `<div class="product-grid">${items.map((p) => productCard(p)).join("")}</div>` : `<p class="muted">No ${name.toLowerCase()} items found in your current database.</p>`}`).join("")}</section>`;
+      }
+
+      function renderCreate() {
+        return renderShell(`
+          <div class="container">
+            <div class="section-head"><div><div class="eyebrow">Build from scratch</div><h1 class="page-title">Create Outfit</h1><p class="muted">Choose the vibe, load a starting article, then let the recommender complete the look.</p></div></div>
+            ${filters()}
+            <div class="detail-layout">
+              <div>
+                <div class="product-grid">${state.products.map((p) => productCard(p)).join("") || `<p class="muted">Load items to pick a starting article.</p>`}</div>
+              </div>
+              ${renderCreateDetail()}
+            </div>
+          </div>
+        `);
+      }
+
+      function renderCreateDetail() {
+        const p = state.selectedProduct;
+        if (!p) return `<div id="productDetail" class="detail-panel"><p class="muted">Select an article to create an outfit.</p></div>`;
+        return `
+          <div id="productDetail" class="detail-panel">
+            <img src="${imageSrc(p)}" alt="${p.product_name}">
+            <div style="margin-top:18px;">
+              <div class="eyebrow">${p.gender} ${p.usage}</div>
+              <h2 style="margin:8px 0;">${p.product_name || p.article_type}</h2>
+              <p class="muted">Category: ${p.subcategory} / ${p.article_type}</p>
+              <p class="muted">Use this as your starter article and generate complementary pieces.</p>
+            </div>
+            <div class="detail-actions">
+              <button class="primary-btn" data-rec="outfit">Create outfit from this article</button>
+              <button class="soft-btn" data-rec="similar">Find similar articles</button>
+            </div>
+            ${renderRecommendations()}
+          </div>
+        `;
+      }
+
+      function renderSnap() {
+        return renderShell(`
+          <div class="container">
+            <div class="section-head"><div><div class="eyebrow">DripDrop</div><h1 class="page-title">Upload a Look</h1><p class="muted">Add a shirt, pants, blazer, or full outfit image. The backend extracts visual features and returns similar articles.</p></div></div>
+            <div class="tool-panel">
+              <div class="uploader">
+                <label>Style target</label>
+                <select id="uploadStyle"><option>Casual</option><option>Formals</option></select>
+                <label style="margin-top:12px;">Image</label>
+                <input id="uploadFile" type="file" accept="image/*">
+                ${state.uploadPreview ? `<img class="upload-preview" src="${state.uploadPreview}" alt="Uploaded preview">` : ""}
+                <div class="detail-actions">
+                  <button class="primary-btn" id="uploadSimilar">Recommend similar kind of it</button>
+                  <button class="dark-btn" id="uploadCreate">Create for me</button>
+                </div>
+                <p class="status">${state.status}</p>
+              </div>
+            </div>
+            ${renderRecommendations()}
+          </div>
+        `);
+      }
+
+      function renderCart() {
+        const total = state.cart.reduce((sum, item) => sum + Number(item.price || priceFor(item)), 0);
+        return renderShell(`
+          <div class="container">
+            <div class="section-head"><div><div class="eyebrow">Checkout preview</div><h1 class="page-title">Cart</h1></div><strong>$${total}</strong></div>
+            <div class="product-grid">${state.cart.map((p) => productCard(p, true)).join("") || `<p class="muted">Cart is empty.</p>`}</div>
+          </div>
+        `);
+      }
+
+      function render() {
+        if (!state.user) {
+          app.innerHTML = renderAuth();
+        } else if (state.view === "shop") {
+          app.innerHTML = renderShop();
+        } else if (state.view === "create") {
+          app.innerHTML = renderCreate();
+        } else if (state.view === "snap") {
+          app.innerHTML = renderSnap();
+        } else if (state.view === "cart") {
+          app.innerHTML = renderCart();
+        } else {
+          app.innerHTML = renderHome();
+        }
+        bindEvents();
+      }
+
+      function bindEvents() {
+        document.querySelectorAll("[data-view]").forEach((btn) => btn.addEventListener("click", () => navTo(btn.dataset.view)));
+        document.querySelector("[data-auth-open]")?.addEventListener("click", () => {
+          state.user = null;
+          render();
+        });
+        document.querySelectorAll("[data-auth]").forEach((btn) => btn.addEventListener("click", () => {
+          state.authMode = btn.dataset.auth;
+          render();
+        }));
+        document.getElementById("authForm")?.addEventListener("submit", login);
+        document.getElementById("googleLogin")?.addEventListener("click", googleLogin);
+        document.getElementById("logout")?.addEventListener("click", logout);
+        document.getElementById("loadProducts")?.addEventListener("click", () => loadProducts());
+        ["filterGender", "filterStyle", "filterSearch", "filterLimit"].forEach((id) => {
+          document.getElementById(id)?.addEventListener("input", syncFiltersFromDOM);
+          document.getElementById(id)?.addEventListener("change", syncFiltersFromDOM);
+        });
+        document.querySelectorAll("[data-item]").forEach((card) => card.addEventListener("click", () => {
+          let clicked = [...state.products, state.selectedProduct, ...state.cart].find((p) => p && p.item_id === card.dataset.item);
+          if (!clicked && card.dataset.product) {
+            try {
+              clicked = JSON.parse(decodeURIComponent(card.dataset.product));
+            } catch {
+              clicked = null;
+            }
+          }
+          if (clicked) {
+            state.selectedProduct = clicked;
+            if (!state.products.some((p) => p.item_id === clicked.item_id)) {
+              state.products = [clicked, ...state.products];
+            }
+          }
+          state.recommendations = null;
+          if (card.dataset.openDetail && state.view !== "shop" && state.view !== "create") {
+            state.view = "shop";
+          }
+          render();
+          setTimeout(() => {
+            document.getElementById("productDetail")?.scrollIntoView({ behavior: "smooth", block: "start" });
+          }, 50);
+        }));
+        document.querySelectorAll("[data-cart]").forEach((btn) => btn.addEventListener("click", (event) => {
+          event.stopPropagation();
+          const product = [...state.products, state.selectedProduct, ...state.cart].find((p) => p && p.item_id === btn.dataset.cart);
+          addToCart(product);
+        }));
+        document.querySelectorAll("[data-rec]").forEach((btn) => btn.addEventListener("click", () => recommend(btn.dataset.rec)));
+        document.getElementById("uploadSimilar")?.addEventListener("click", () => uploadRecommend("similar"));
+        document.getElementById("uploadCreate")?.addEventListener("click", () => uploadRecommend("create"));
+        document.getElementById("uploadFile")?.addEventListener("change", (event) => {
+          const file = event.target.files[0];
+          state.uploadFile = file || null;
+          state.uploadPreview = file ? URL.createObjectURL(file) : "";
+          state.status = file ? `Selected ${file.name}` : "Choose an image first.";
+          render();
+        });
+      }
+
+      render();
+      if (state.user) loadProducts();
+    </script>
   </body>
 </html>
